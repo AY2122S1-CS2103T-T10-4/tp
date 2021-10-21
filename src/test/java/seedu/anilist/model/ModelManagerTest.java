@@ -15,7 +15,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.anilist.commons.core.GuiSettings;
-import seedu.anilist.model.anime.NameContainsKeywordsPredicate;
+import seedu.anilist.model.anime.NameMatchesKeywordsPredicate;
 import seedu.anilist.testutil.AnimeListBuilder;
 import seedu.anilist.ui.TabOption;
 
@@ -133,7 +133,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = AOT.getName().fullName.split("\\s+");
-        modelManager.updateFilteredAnimeList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredAnimeList(new NameMatchesKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(animeList, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests

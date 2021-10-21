@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import seedu.anilist.model.Model;
 import seedu.anilist.model.ModelManager;
 import seedu.anilist.model.UserPrefs;
-import seedu.anilist.model.anime.NameContainsKeywordsPredicate;
+import seedu.anilist.model.anime.NameMatchesKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -29,10 +29,10 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
-        NameContainsKeywordsPredicate firstPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        NameContainsKeywordsPredicate secondPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
+        NameMatchesKeywordsPredicate firstPredicate =
+                new NameMatchesKeywordsPredicate(Collections.singletonList("first"));
+        NameMatchesKeywordsPredicate secondPredicate =
+                new NameMatchesKeywordsPredicate(Collections.singletonList("second"));
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -57,7 +57,7 @@ public class FindCommandTest {
     @Test
     public void execute_zeroKeywords_noAnimeFound() {
         String expectedMessage = String.format(MESSAGE_ANIME_LISTED_OVERVIEW, 0);
-        NameContainsKeywordsPredicate predicate = preparePredicate(" ");
+        NameMatchesKeywordsPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredAnimeList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -67,7 +67,7 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multipleAnimesFound() {
         String expectedMessage = String.format(MESSAGE_ANIME_LISTED_OVERVIEW, 3);
-        NameContainsKeywordsPredicate predicate = preparePredicate("Man Elfen night");
+        NameMatchesKeywordsPredicate predicate = preparePredicate("Man Elfen night");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredAnimeList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -75,9 +75,9 @@ public class FindCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
+     * Parses {@code userInput} into a {@code NameMatchesKeywordsPredicate}.
      */
-    private NameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private NameMatchesKeywordsPredicate preparePredicate(String userInput) {
+        return new NameMatchesKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

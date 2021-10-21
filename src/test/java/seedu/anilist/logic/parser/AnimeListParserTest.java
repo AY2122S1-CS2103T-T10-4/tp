@@ -30,7 +30,7 @@ import seedu.anilist.logic.commands.HelpCommand;
 import seedu.anilist.logic.commands.ListCommand;
 import seedu.anilist.logic.parser.exceptions.ParseException;
 import seedu.anilist.model.anime.Anime;
-import seedu.anilist.model.anime.NameContainsKeywordsPredicate;
+import seedu.anilist.model.anime.NameMatchesKeywordsPredicate;
 import seedu.anilist.testutil.AnimeBuilder;
 import seedu.anilist.testutil.AnimeUtil;
 import seedu.anilist.testutil.GenresDescriptorBuilder;
@@ -70,7 +70,7 @@ public class AnimeListParserTest {
         List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        assertEquals(new FindCommand(new NameMatchesKeywordsPredicate(keywords)), command);
     }
 
     @Test

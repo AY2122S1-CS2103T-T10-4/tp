@@ -20,7 +20,7 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all animes. An optional status parameter can be "
             + "specified to switch tabs, showing only anime with that status.\n"
-            + "Parameters: [" + PREFIX_STATUS + "STATUS]\n"
+            + "Optional parameter: [" + PREFIX_STATUS + "STATUS]\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_STATUS + "watching\n";
     private final Predicate<Anime> predicate;
     private final Status statusToMatch;

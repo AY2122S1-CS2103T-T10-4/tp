@@ -18,7 +18,7 @@ import seedu.anilist.logic.commands.exceptions.CommandException;
 import seedu.anilist.model.AnimeList;
 import seedu.anilist.model.Model;
 import seedu.anilist.model.anime.Anime;
-import seedu.anilist.model.anime.NameContainsKeywordsPredicate;
+import seedu.anilist.model.anime.NameMatchesKeywordsPredicate;
 import seedu.anilist.testutil.EpisodeDescriptorBuilder;
 import seedu.anilist.testutil.GenresDescriptorBuilder;
 import seedu.anilist.testutil.NameDescriptorBuilder;
@@ -139,7 +139,7 @@ public class CommandTestUtil {
 
         Anime anime = model.getFilteredAnimeList().get(targetIndex.getZeroBased());
         final String[] splitName = anime.getName().fullName.split("\\s+");
-        model.updateFilteredAnimeList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredAnimeList(new NameMatchesKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredAnimeList().size());
     }

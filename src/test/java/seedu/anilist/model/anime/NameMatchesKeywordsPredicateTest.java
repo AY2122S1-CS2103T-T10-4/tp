@@ -11,21 +11,21 @@ import org.junit.jupiter.api.Test;
 
 import seedu.anilist.testutil.AnimeBuilder;
 
-public class NameContainsKeywordsPredicateTest {
+public class NameMatchesKeywordsPredicateTest {
 
     @Test
     public void equals() {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        NameContainsKeywordsPredicate firstPredicate = new NameContainsKeywordsPredicate(firstPredicateKeywordList);
-        NameContainsKeywordsPredicate secondPredicate = new NameContainsKeywordsPredicate(secondPredicateKeywordList);
+        NameMatchesKeywordsPredicate firstPredicate = new NameMatchesKeywordsPredicate(firstPredicateKeywordList);
+        NameMatchesKeywordsPredicate secondPredicate = new NameMatchesKeywordsPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        NameContainsKeywordsPredicate firstPredicateCopy = new NameContainsKeywordsPredicate(firstPredicateKeywordList);
+        NameMatchesKeywordsPredicate firstPredicateCopy = new NameMatchesKeywordsPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -41,35 +41,35 @@ public class NameContainsKeywordsPredicateTest {
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
-        NameContainsKeywordsPredicate predicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("Attack"));
+        NameMatchesKeywordsPredicate predicate =
+                new NameMatchesKeywordsPredicate(Collections.singletonList("Attack"));
         assertTrue(predicate.test(new AnimeBuilder().withName("Attack Black").build()));
 
         // Multiple keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Attack", "Black"));
+        predicate = new NameMatchesKeywordsPredicate(Arrays.asList("Attack", "Black"));
         assertTrue(predicate.test(new AnimeBuilder().withName("Attack Black").build()));
 
         // Only one matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Black", "Chainsaw"));
+        predicate = new NameMatchesKeywordsPredicate(Arrays.asList("Black", "Chainsaw"));
         assertTrue(predicate.test(new AnimeBuilder().withName("Attack Chainsaw").build()));
 
         // Mixed-case keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Attack", "Black"));
+        predicate = new NameMatchesKeywordsPredicate(Arrays.asList("Attack", "Black"));
         assertTrue(predicate.test(new AnimeBuilder().withName("Attack Black").build()));
     }
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
+        NameMatchesKeywordsPredicate predicate = new NameMatchesKeywordsPredicate(Collections.emptyList());
         assertFalse(predicate.test(new AnimeBuilder().withName("Attack on Titan").build()));
 
         // Non-matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Chainsaw"));
+        predicate = new NameMatchesKeywordsPredicate(Arrays.asList("Chainsaw"));
         assertFalse(predicate.test(new AnimeBuilder().withName("Black Rock Shooter").build()));
 
         // Keywords match genres, but does not match name
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("action", "adventure"));
+        predicate = new NameMatchesKeywordsPredicate(Arrays.asList("action", "adventure"));
         assertFalse(predicate.test(new AnimeBuilder().withName("Attack on Titan")
                 .withGenres("action", "adventure").build()));
     }

@@ -1,12 +1,17 @@
 package seedu.anilist.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.anilist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.anilist.logic.parser.CliSyntax.PREFIX_GENRE;
+import static seedu.anilist.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.Arrays;
+import java.util.List;
 
 import seedu.anilist.logic.commands.FindCommand;
 import seedu.anilist.logic.parser.exceptions.ParseException;
-import seedu.anilist.model.anime.NameContainsKeywordsPredicate;
+import seedu.anilist.model.anime.GenresMatchKeywordsPredicate;
+import seedu.anilist.model.anime.NameMatchesKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -25,9 +30,23 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = trimmedArgs.split("\\s+");
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_GENRE);
+        List<String> nameKeywords = List.of(argMultimap.getValue(PREFIX_NAME).get().split(" "));
+        List<String> genreKeywords = argMultimap.getAllValues(PREFIX_GENRE);
+        System.out.println(nameKeywords.toString());
 
-        return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
+        boolean isInvalidFormat = (nameKeywords.size() == 0 && genreKeywords.size() == 0);
+        if (isInvalidFormat) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        } else if (nameKeywords.size() == 0) {
+            return new FindCommand(new GenresMatchKeywordsPredicate(genreKeywords));
+        } else if (genreKeywords.size() == 0) {
+            return new FindCommand(new NameMatchesKeywordsPredicate(nameKeywords));
+        } else {
+            return new FindCommand(new NameMatchesKeywordsPredicate(nameKeywords),
+                    new GenresMatchKeywordsPredicate(genreKeywords));
+        }
     }
 
 }
