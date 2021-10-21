@@ -31,7 +31,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_GENRE);
-        List<String> nameKeywords = List.of(argMultimap.getValue(PREFIX_NAME).get().split(" "));
+        List<String> nameKeywords = argMultimap.getAllValues(PREFIX_NAME);
         List<String> genreKeywords = argMultimap.getAllValues(PREFIX_GENRE);
         System.out.println(nameKeywords.toString());
 
