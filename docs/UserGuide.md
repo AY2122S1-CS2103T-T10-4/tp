@@ -48,7 +48,7 @@ Format: `add n/NAME [e/EPISODE] [s/STATUS] [g/GENRE]...`
 - `GENRE` can only contain alphabets and spaces. Two or more consecutive spaces are not allowed
 - You can provide any number of `GENRE`
 
-Examples:
+Example:
 * `add n/Shingeki no Kyojin e/2 s/w g/fantasy`
 
 ### Deleting an anime : `delete`
@@ -92,7 +92,7 @@ Format: `update INDEX e/NEWEPISODE`
 - The index must be a positive integer 1, 2, 3, ...
 
 
-Examples:
+Example:
 *  `update 1 e/3`
 
 ### Updating an anime's status: `status`
@@ -106,7 +106,7 @@ Format: `status INDEX s/UPDATEDSTATUS`
 - Updates the anime at the specified `INDEX`
 - The index must be a positive integer 1, 2, 3, ...
 
-Examples:
+Example:
 *  `status 1 s/f`
 
 ### Updating an anime's name: `rename`
@@ -118,8 +118,8 @@ Format: `rename INDEX s/NEWNAME`
 - Updates the anime at the specified `INDEX`
 - The index must be a positive integer 1, 2, 3, ...
 
-Examples:
-*  `status 1 s/f`
+Example:
+*  `rename 1 n/Doraemon`
 
 ### Adding/Deleting a genre from an anime: `genre`
 
@@ -134,18 +134,34 @@ Format: `genre INDEX c/ACTION g/GENRE [g/GENRE]`
 - Updates the anime at the specified `INDEX`
 - The index must be a positive integer 1, 2, 3, ...
 
-  
+
   Examples:
 *  `genre 1 c/add g/shounen g/medieval fantasy g/isekai`
 *  `genre 1 c/delete g/shounen g/medieval fantasy g/isekai`
 
 ### Clearing all animes currently displayed: `clear`
 
-Removes all anime currently displayed on the screen<br>
+Removes all anime currently displayed on the screen, upon user confirmation <br>
 Format: `clear`
 
-- Only animes from the current tab will be removed from the application
+- Only animes currently listed will be removed from the application
 - User will be prompted with a confirmation message, and can proceed by entering 'clear' again
 - Entering anything else will cancel the command
 
+### Finding an anime: `find`
 
+Finds all anime(s) that match specified keyword(s) in their names or genres
+(case-insensitive) and displays them as a list with index numbers<br>
+Format: `find [n/NAME KEYWORD]... [g/GENRE KEYWORD]...`
+
+- `NAME KEYWORD` refers to the name keyword(s) you are searching for
+- `GENRE KEYWORD` refers to the genre keyword(s) you are searching for
+- `find` has to be followed by at least one search term
+
+Example:
+*  `find n/boku no n/hero g/comedy`
+
+### View user statistics: `stats`
+
+Displays a pop-up window that shows the statistical breakdown of anime(s) in AniList
+Format: `stats`
