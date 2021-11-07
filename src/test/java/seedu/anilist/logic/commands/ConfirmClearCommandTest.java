@@ -24,7 +24,7 @@ import seedu.anilist.model.anime.StatusEqualsPredicate;
 public class ConfirmClearCommandTest {
 
     /** {@code Predicate} that always evaluate to false */
-    private Predicate<Anime> predicateShowNoAnime = unused -> false;
+    private final Predicate<Anime> predicateShowNoAnime = unused -> false;
 
     @Test
     public void execute_emptyAnimeList_success() {

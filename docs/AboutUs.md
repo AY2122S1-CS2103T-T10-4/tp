@@ -5,7 +5,7 @@ title: About Us
 
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
-You can reach us at the email `AniList@comp.nus.edu.sg`
+You can reach us at the email `AniList@nus.edu.sg`
 
 ## Project team
 
@@ -13,7 +13,6 @@ You can reach us at the email `AniList@comp.nus.edu.sg`
 
 <img src="images/clyveycui.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
 [[github](https://github.com/clyveycui)]
 [[portfolio](team/profile-picture/clyveycui.md)]
 
@@ -37,7 +36,7 @@ You can reach us at the email `AniList@comp.nus.edu.sg`
 [[github](https://github.com/NekrozQliphort)] [[portfolio](team/NekrozQliphort.md)]
 
 * Role: Documentation
-* Responsibilities: Ensuring quality of vartious project documents
+* Responsibilities: Ensuring quality of various project documents
 
 ### Luo Dan
 
@@ -56,5 +55,5 @@ You can reach us at the email `AniList@comp.nus.edu.sg`
 [[github](http://github.com/muhammad-faruq)]
 [[portfolio](team/muhammad-faruq.md)]
 
-* Role: Scheduling and tracking
-* Responsibilities: Defining, assigning, and tracking project tasks
+* Role: Scheduling and UI manager
+* Responsibilities: Defining, assigning, tracking project tasks. Managing UI matters.

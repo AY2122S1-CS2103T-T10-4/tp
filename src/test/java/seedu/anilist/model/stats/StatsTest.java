@@ -64,13 +64,11 @@ public class StatsTest {
     public void getStats_numUniqueGenresLessThanMax_returnsTrue() {
         int numUniqueGenres =
                 Math.min(Stats.getGenreCountLimit(), GenreList.getListOfGenres().length);
-        int watchingCount = numUniqueGenres;
         int toWatchCount = 0;
         int finishedCount = 0;
         HashMap<Genre, Integer> allGenres = new HashMap<>();
 
-        int expectedTotalAnimes = watchingCount + toWatchCount + finishedCount;
-        int expectedNumUniqueGenres = numUniqueGenres;
+        int expectedTotalAnimes = numUniqueGenres + toWatchCount + finishedCount;
 
         HashMap<Genre, Integer> expectedTopGenres = new HashMap<>();
         for (int i = 0; i < numUniqueGenres; i++) {
@@ -78,10 +76,10 @@ public class StatsTest {
             allGenres.put(genre, 1);
             expectedTopGenres.put(genre, 1);
         }
-        Stats stats = new Stats(watchingCount, toWatchCount, finishedCount, allGenres);
+        Stats stats = new Stats(numUniqueGenres, toWatchCount, finishedCount, allGenres);
 
         assertEquals(stats.getTotalAnimesCount(), expectedTotalAnimes);
-        assertEquals(stats.getNumUniqueGenres(), expectedNumUniqueGenres);
+        assertEquals(stats.getNumUniqueGenres(), numUniqueGenres);
         assertEquals(stats.getTopGenres(), expectedTopGenres);
     }
 

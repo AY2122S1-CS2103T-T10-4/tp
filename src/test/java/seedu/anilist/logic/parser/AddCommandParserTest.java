@@ -7,17 +7,17 @@ import static seedu.anilist.logic.commands.CommandTestUtil.GENRE_DESC_ACTION;
 import static seedu.anilist.logic.commands.CommandTestUtil.GENRE_DESC_SCIENCE_FICTION;
 import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_EPISODE_DESC_DECIMAL;
 import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_EPISODE_DESC_LARGER_THAN_MAX_INT;
-import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_GENRE_DESC;
-import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_GENRE_DESC_NON_ALPHANUMERIC;
+import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_NAME_DESC_BLANK;
 import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_STATUS_DESC_ALPHA;
 import static seedu.anilist.logic.commands.CommandTestUtil.NAME_DESC_AKIRA;
 import static seedu.anilist.logic.commands.CommandTestUtil.NAME_DESC_BNHA;
 import static seedu.anilist.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.anilist.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.anilist.logic.commands.CommandTestUtil.STATUS_DESC_TOWATCH;
-import static seedu.anilist.logic.commands.CommandTestUtil.VALID_EPISODE_TWO;
+import static seedu.anilist.logic.commands.CommandTestUtil.VALID_EPISODE_TWO_WITH_ZEROS_PADDED;
 import static seedu.anilist.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
-import static seedu.anilist.logic.commands.CommandTestUtil.VALID_GENRE_SCIENCE_FICTION;
+import static seedu.anilist.logic.commands.CommandTestUtil.VALID_GENRE_SCIENCE_FICTION_UPPER_CASE;
 import static seedu.anilist.logic.commands.CommandTestUtil.VALID_NAME_BNHA;
 import static seedu.anilist.logic.commands.CommandTestUtil.VALID_STATUS_TOWATCH;
 import static seedu.anilist.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -36,14 +36,14 @@ import seedu.anilist.model.genre.Genre;
 import seedu.anilist.testutil.AnimeBuilder;
 
 public class AddCommandParserTest {
-    private AddCommandParser parser = new AddCommandParser();
+    private final AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
         Anime expectedAnime = new AnimeBuilder(BNHA)
-                .withEpisode(VALID_EPISODE_TWO)
+                .withEpisode(VALID_EPISODE_TWO_WITH_ZEROS_PADDED)
                 .withStatus(VALID_STATUS_TOWATCH)
-                .withGenres(VALID_GENRE_SCIENCE_FICTION)
+                .withGenres(VALID_GENRE_SCIENCE_FICTION_UPPER_CASE)
                 .build();
 
         // whitespace only preamble
@@ -57,9 +57,9 @@ public class AddCommandParserTest {
 
         // multiple genres - all accepted
         Anime expectedAnimeMultipleGenres = new AnimeBuilder(BNHA)
-                .withEpisode(VALID_EPISODE_TWO)
+                .withEpisode(VALID_EPISODE_TWO_WITH_ZEROS_PADDED)
                 .withStatus(VALID_STATUS_TOWATCH)
-                .withGenres(VALID_GENRE_SCIENCE_FICTION, VALID_GENRE_ACTION)
+                .withGenres(VALID_GENRE_SCIENCE_FICTION_UPPER_CASE, VALID_GENRE_ACTION)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BNHA + EPISODE_DESC_EPISODE_TWO + STATUS_DESC_TOWATCH
                 + GENRE_DESC_ACTION + GENRE_DESC_SCIENCE_FICTION, new AddCommand(expectedAnimeMultipleGenres));
@@ -70,7 +70,7 @@ public class AddCommandParserTest {
         // zero episode
         Anime expectedAnimeZeroEpisode = new AnimeBuilder(AKIRA)
                 .withStatus(VALID_STATUS_TOWATCH)
-                .withGenres(VALID_GENRE_SCIENCE_FICTION, VALID_GENRE_ACTION)
+                .withGenres(VALID_GENRE_SCIENCE_FICTION_UPPER_CASE, VALID_GENRE_ACTION)
                 .build();
         assertParseSuccess(parser, NAME_DESC_AKIRA + STATUS_DESC_TOWATCH
                 + GENRE_DESC_ACTION + GENRE_DESC_SCIENCE_FICTION,
@@ -78,8 +78,8 @@ public class AddCommandParserTest {
 
         // zero status
         Anime expectedAnimeZeroStatus = new AnimeBuilder(AKIRA)
-                .withEpisode(VALID_EPISODE_TWO)
-                .withGenres(VALID_GENRE_SCIENCE_FICTION, VALID_GENRE_ACTION)
+                .withEpisode(VALID_EPISODE_TWO_WITH_ZEROS_PADDED)
+                .withGenres(VALID_GENRE_SCIENCE_FICTION_UPPER_CASE, VALID_GENRE_ACTION)
                 .build();
         assertParseSuccess(parser, NAME_DESC_AKIRA + EPISODE_DESC_EPISODE_TWO
                 + GENRE_DESC_ACTION + GENRE_DESC_SCIENCE_FICTION,
@@ -87,7 +87,7 @@ public class AddCommandParserTest {
 
         // zero genre
         Anime expectedAnimeZeroGenre = new AnimeBuilder(AKIRA)
-                .withEpisode(VALID_EPISODE_TWO)
+                .withEpisode(VALID_EPISODE_TWO_WITH_ZEROS_PADDED)
                 .withStatus(VALID_STATUS_TOWATCH)
                 .withGenres()
                 .build();
@@ -113,7 +113,7 @@ public class AddCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + EPISODE_DESC_EPISODE_TWO + STATUS_DESC_TOWATCH
+        assertParseFailure(parser, INVALID_NAME_DESC_BLANK + EPISODE_DESC_EPISODE_TWO + STATUS_DESC_TOWATCH
                 + GENRE_DESC_ACTION + GENRE_DESC_SCIENCE_FICTION, Name.MESSAGE_CONSTRAINTS);
 
         // invalid episode
@@ -128,7 +128,8 @@ public class AddCommandParserTest {
 
         // invalid genres
         assertParseFailure(parser, NAME_DESC_BNHA + EPISODE_DESC_EPISODE_TWO + STATUS_DESC_TOWATCH
-                + INVALID_GENRE_DESC + VALID_GENRE_SCIENCE_FICTION, Genre.MESSAGE_CONSTRAINTS);
+                + INVALID_GENRE_DESC_NON_ALPHANUMERIC + VALID_GENRE_SCIENCE_FICTION_UPPER_CASE,
+                Genre.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BNHA

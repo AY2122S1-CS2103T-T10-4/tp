@@ -3,18 +3,18 @@ package seedu.anilist.model.genre;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_GENRE_ALPHA;
+import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_GENRE_NON_ALPHANUMERIC;
+import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_GENRE_NUMERIC;
+import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_STRING_EMPTY;
+import static seedu.anilist.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
+import static seedu.anilist.logic.commands.CommandTestUtil.VALID_GENRE_SCIENCE_FICTION_UPPER_CASE;
+import static seedu.anilist.logic.commands.CommandTestUtil.VALID_GENRE_SUPERNATURAL_MIXED_CASE;
 import static seedu.anilist.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 public class GenreTest {
-
-    private static final String INVALID_GENRE_NON_ALPHANUMERICAL = "@#$%^&";
-    private static final String INVALID_GENRE_START_WITH_SPACE = " bad";
-    private static final String INVALID_GENRE_WITH_DOUBLE_SPACE = "three  word  genres";
-
-    private static final String VALID_GENRE_LOWER_CASE = "fantasy";
-    private static final String VALID_GENRE_MIXED_CASE = "supERNatuRAl";
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -23,8 +23,10 @@ public class GenreTest {
 
     @Test
     public void constructor_invalidGenreName_throwsIllegalArgumentException() {
-        String invalidGenreName = "";
-        assertThrows(IllegalArgumentException.class, () -> new Genre(invalidGenreName));
+        // Genre that is not in genrelist
+        assertThrows(IllegalArgumentException.class, () -> new Genre(INVALID_STRING_EMPTY));
+        assertThrows(IllegalArgumentException.class, () -> new Genre(INVALID_GENRE_NUMERIC));
+
     }
 
     @Test
@@ -32,26 +34,25 @@ public class GenreTest {
         // null genre name
         assertThrows(NullPointerException.class, () -> Genre.isValidGenreName(null));
 
-        // invalid genres
-        // genre containing non-alphanumerical characters
-        assertFalse(Genre.isValidGenreName(INVALID_GENRE_NON_ALPHANUMERICAL));
-        // genre starting with space
-        assertFalse(Genre.isValidGenreName(INVALID_GENRE_START_WITH_SPACE));
-        // genre with double spaces
-        assertFalse(Genre.isValidGenreName(INVALID_GENRE_WITH_DOUBLE_SPACE));
+        // Genre that is not in genrelist
+        assertFalse(Genre.isValidGenreName(INVALID_GENRE_ALPHA));
+        assertFalse(Genre.isValidGenreName(INVALID_GENRE_NON_ALPHANUMERIC));
 
-        // valid genres
-        // genre with lower case
-        assertTrue(Genre.isValidGenreName(VALID_GENRE_LOWER_CASE));
-        // genre with mixed case
-        assertTrue(Genre.isValidGenreName(VALID_GENRE_MIXED_CASE));
+        // valid genre lower case
+        assertTrue(Genre.isValidGenreName(VALID_GENRE_ACTION));
+
+        // valid genre upper case
+        assertTrue(Genre.isValidGenreName(VALID_GENRE_SCIENCE_FICTION_UPPER_CASE));
+
+        // valid genre mixed case
+        assertTrue(Genre.isValidGenreName(VALID_GENRE_SUPERNATURAL_MIXED_CASE));
     }
 
     @Test
     public void compareTo() {
-        Genre genreOne = new Genre(VALID_GENRE_LOWER_CASE);
-        Genre genreOneCopy = new Genre(VALID_GENRE_LOWER_CASE);
-        Genre genreTwo = new Genre(VALID_GENRE_MIXED_CASE);
+        Genre genreOne = new Genre(VALID_GENRE_ACTION);
+        Genre genreOneCopy = new Genre(VALID_GENRE_ACTION);
+        Genre genreTwo = new Genre(VALID_GENRE_SUPERNATURAL_MIXED_CASE);
 
         // null input
         assertEquals(0, genreOne.compareTo(null));

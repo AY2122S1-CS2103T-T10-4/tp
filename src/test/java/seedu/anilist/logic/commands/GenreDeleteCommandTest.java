@@ -35,7 +35,7 @@ import seedu.anilist.testutil.GenresDescriptorBuilder;
 public class GenreDeleteCommandTest {
     private static final String ANIME_ONE_GENRE = FIRST_ANIME_GENRE;
 
-    private Model model = new ModelManager(getTypicalAnimeList(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalAnimeList(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredListGenrePresent_success() {

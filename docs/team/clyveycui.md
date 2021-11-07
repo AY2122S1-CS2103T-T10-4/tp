@@ -20,7 +20,7 @@ Given below are my contributions to the project.
   * Justification: This feature helps to improve the user experience of those who prefer CLI over mouse-click interaction, by removing the need to use a mouse to interact with our GUI.
   * Highlights: The design of this feature is rather different as it required an interaction between the Commands and the UI components, which took us quite a bit of discussion before we could finalize it.
   * Credits: Other team members that assisted with this feature: Muhammad Faruq [[github](http://github.com/muhammad-faruq)]
-  
+
 * **Code contributed**: [RepoSense link](https://nus-cs2103-ay2122s1.github.io/tp-dashboard/?search=t10&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2021-09-17&tabOpen=true&tabType=authorship&tabAuthor=clyveycui&tabRepo=AY2122S1-CS2103T-T10-4%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false)
 
 * **Project management**:

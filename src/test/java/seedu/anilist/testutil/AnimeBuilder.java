@@ -16,8 +16,8 @@ import seedu.anilist.model.util.SampleDataUtil;
 public class AnimeBuilder {
 
     public static final String DEFAULT_NAME = "Attack on Titan";
-    public static final String DEFAULT_EPISODE = "0";
-    public static final String DEFAULT_STATUS = "watching";
+    public static final String DEFAULT_EPISODE = Episode.DEFAULT_EPISODE;
+    public static final String DEFAULT_STATUS = Status.DEFAULT_STATUS;
 
     private Name name;
     private Episode episode;

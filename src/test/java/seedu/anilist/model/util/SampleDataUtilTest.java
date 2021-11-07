@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.anilist.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
-import static seedu.anilist.logic.commands.CommandTestUtil.VALID_GENRE_SCIENCE_FICTION;
+import static seedu.anilist.logic.commands.CommandTestUtil.VALID_GENRE_SCIENCE_FICTION_UPPER_CASE;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -34,12 +34,12 @@ public class SampleDataUtilTest {
 
     @Test
     public void getGenreSet_getsGenreSet() {
-        String genreString1 = VALID_GENRE_SCIENCE_FICTION;
+        String genreString1 = VALID_GENRE_SCIENCE_FICTION_UPPER_CASE;
         String genreString2 = VALID_GENRE_ACTION;
         Set<Genre> expectedGenreSet = new HashSet<>() {{
-                add(new Genre(genreString1));
+                add(new Genre(genreString1.toLowerCase()));
                 add(new Genre(genreString2));
             }};
-        assertEquals(expectedGenreSet, SampleDataUtil.getGenreSet(genreString2, genreString1));
+        assertEquals(expectedGenreSet, SampleDataUtil.getGenreSet(genreString1, genreString2));
     }
 }

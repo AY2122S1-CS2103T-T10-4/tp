@@ -1,7 +1,7 @@
 package seedu.anilist.testutil;
 
 import static seedu.anilist.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
-import static seedu.anilist.logic.commands.CommandTestUtil.VALID_GENRE_SCIENCE_FICTION;
+import static seedu.anilist.logic.commands.CommandTestUtil.VALID_GENRE_SCIENCE_FICTION_UPPER_CASE;
 import static seedu.anilist.logic.commands.CommandTestUtil.VALID_NAME_AKIRA;
 import static seedu.anilist.logic.commands.CommandTestUtil.VALID_NAME_BNHA;
 
@@ -62,9 +62,9 @@ public class TypicalAnimes {
 
     // Manually added - Anime's details found in {@code CommandTestUtil}
     public static final Anime AKIRA = new AnimeBuilder().withName(VALID_NAME_AKIRA)
-            .withGenres(VALID_GENRE_SCIENCE_FICTION).build();
+            .withGenres(VALID_GENRE_SCIENCE_FICTION_UPPER_CASE).build();
     public static final Anime BNHA = new AnimeBuilder().withName(VALID_NAME_BNHA)
-            .withGenres(VALID_GENRE_ACTION, VALID_GENRE_SCIENCE_FICTION).build();
+            .withGenres(VALID_GENRE_ACTION, VALID_GENRE_SCIENCE_FICTION_UPPER_CASE).build();
 
     public static final String KEYWORD_MATCHING_HUNTER = "Hunter"; // A keyword that matches HUNTER
 

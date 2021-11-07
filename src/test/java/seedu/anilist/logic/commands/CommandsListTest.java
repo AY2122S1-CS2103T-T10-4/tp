@@ -3,6 +3,8 @@ package seedu.anilist.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 
 public class CommandsListTest {
@@ -24,9 +26,7 @@ public class CommandsListTest {
     public void getListOfCommands() {
         String[] listOfCommandsCopy = CommandsList.getListOfCommands();
         if (listOfCommandsCopy.length > 0) {
-            for (int i = 0; i < listOfCommandsCopy.length; i++) {
-                listOfCommandsCopy[i] = "foobar foobar";
-            }
+            Arrays.fill(listOfCommandsCopy, "foobar foobar");
 
             String wrongString = listOfCommandsToString(listOfCommandsCopy);
             String actualString = CommandsList.getListOfCommandsAsString();
@@ -40,9 +40,9 @@ public class CommandsListTest {
      */
     private String listOfCommandsToString(String[] listOfCommands) {
         String result = "";
-        for (int i = 0; i < listOfCommands.length; i++) {
+        for (String command : listOfCommands) {
             result += "    - ";
-            result += listOfCommands[i];
+            result += command;
             result += "\n";
         }
         result = result.substring(0, result.length() - 1);

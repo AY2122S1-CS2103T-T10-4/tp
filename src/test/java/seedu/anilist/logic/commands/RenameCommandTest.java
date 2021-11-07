@@ -25,7 +25,7 @@ import seedu.anilist.testutil.AnimeBuilder;
 import seedu.anilist.testutil.NameDescriptorBuilder;
 
 public class RenameCommandTest {
-    private Model model = new ModelManager(getTypicalAnimeList(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalAnimeList(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {

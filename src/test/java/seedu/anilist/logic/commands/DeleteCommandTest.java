@@ -24,7 +24,7 @@ import seedu.anilist.model.anime.Anime;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalAnimeList(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalAnimeList(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {

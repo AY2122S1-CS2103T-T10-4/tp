@@ -24,7 +24,7 @@ public class UpdateStatusCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateStatusCommand.MESSAGE_USAGE);
 
-    private UpdateStatusCommandParser parser = new UpdateStatusCommandParser();
+    private final UpdateStatusCommandParser parser = new UpdateStatusCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
@@ -74,7 +74,8 @@ public class UpdateStatusCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_STATUS_DESC_NUMERIC, Status.MESSAGE_CONSTRAINTS);
 
         // wrong param specified
-        assertParseFailure(parser, "1" + STATUS_DESC_WATCHING + EPISODE_DESC_EPISODE_ONE, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1" + STATUS_DESC_WATCHING + EPISODE_DESC_EPISODE_ONE,
+                MESSAGE_INVALID_FORMAT);
     }
 
     @Test

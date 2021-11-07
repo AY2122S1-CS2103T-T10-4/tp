@@ -3,8 +3,8 @@ package seedu.anilist.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.anilist.commons.core.Messages.MESSAGE_ANIME_LISTED_OVERVIEW;
 import static seedu.anilist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_GENRE_DESC;
-import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_GENRE_DESC_NON_ALPHANUMERIC;
+import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_NAME_DESC_BLANK;
 import static seedu.anilist.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.anilist.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.anilist.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -38,16 +38,16 @@ public class FindCommandParserIntegrationTest {
     private static final String MESSAGE_INVALID_FORMAT =
         String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
 
-    private Model model = new ModelManager(getTypicalAnimeList(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalAnimeList(), new UserPrefs());
-    private FindCommandParser parser = new FindCommandParser();
+    private final Model model = new ModelManager(getTypicalAnimeList(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalAnimeList(), new UserPrefs());
+    private final FindCommandParser parser = new FindCommandParser();
 
     @Test
     public void execute_zeroKeywords_throwsParseException() {
         assertParseFailure(parser, PREAMBLE_NON_EMPTY, MESSAGE_INVALID_FORMAT);
         assertParseFailure(parser, PREAMBLE_WHITESPACE, MESSAGE_INVALID_FORMAT);
-        assertParseFailure(parser, INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
-        assertParseFailure(parser, INVALID_GENRE_DESC, Genre.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_NAME_DESC_BLANK, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, INVALID_GENRE_DESC_NON_ALPHANUMERIC, Genre.MESSAGE_CONSTRAINTS);
     }
 
     @Test
@@ -87,7 +87,7 @@ public class FindCommandParserIntegrationTest {
     public void execute_multipleNameAndGenres_noAnimeFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_ANIME_LISTED_OVERVIEW, 0);
         Predicate<Anime> predicate = preparePredicate(
-            Arrays.asList("chainsaw"), Arrays.asList("action", "horror"));
+                List.of("chainsaw"), Arrays.asList("action", "horror"));
         FindCommand command = parser.parse(" n/chainsaw g/action g/horror");
         expectedModel.updateFilteredAnimeList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);

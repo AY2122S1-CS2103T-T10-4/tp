@@ -14,6 +14,8 @@ Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class TabOption
+Class Stats
 
 
 Class UniqueAnimeList
@@ -35,6 +37,8 @@ Model .right.> ReadOnlyUserPrefs
 Model .left.> ReadOnlyAnimeList
 ModelManager -left-> "1" AnimeList
 ModelManager -right-> "1" UserPrefs
+ModelManager -down-> "1" TabOption
+ModelManager -down-> "1" Stats
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 AnimeList *--> "1" UniqueAnimeList

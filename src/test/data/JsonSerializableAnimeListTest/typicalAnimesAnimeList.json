@@ -2,7 +2,7 @@
   "_comment": "AnimeList save file which contains the same Anime values as in TypicalAnimes#getTypicalAnimeList()",
   "anime" : [ {
     "name" : "Attack on Titan: The Final Season",
-    "episode" : "0",
+    "episode" : "2",
     "status" : "watching",
     "genres" : [ "fantasy" ]
   }, {

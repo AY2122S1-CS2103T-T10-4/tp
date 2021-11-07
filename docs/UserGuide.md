@@ -367,17 +367,19 @@ ___
 
 ### Finding an anime: `find`
 
-Finds all anime(s) with status belonging to the current tab that contains specified keyword(s) in their names or genres
-(case-insensitive) and displays them as a list with index numbers<br>
-Format: `find [n/NAME KEYWORD]... [g/GENRE KEYWORD]...`
+Finds all anime(s) with status belonging to the current tab that contains specified search phrase(s) in their names or
+genres(case-insensitive) and displays them as a list with index numbers<br>
+Format: `find [n/NAME SERACH TERM]... [g/GENRE SEARCH TERM]...`
 
-* `NAME KEYWORD` refers to the name keyword(s) you are searching for
-* `GENRE KEYWORD` refers to the genre keyword(s) you are searching for
+* `NAME SERACH TERM` refers to the name search term(s) you are searching for
+* `GENRE SEARCH TERM` refers to the genre search term(s) you are searching for
 * `find` has to be followed by at least one search term
+* An anime only has to match ONE search term from each category(i.e. `NAME` and `GENRE`) to be counted as a match
+and displayed
 
 Parameters:
-* `NAME KEYWORD`
-* `GENRE KEYWORD`
+* `NAME SERACH TERM`
+* `GENRE SEARCH TERM`
 
 <div markdown="block" class="alert alert-info">
 
@@ -434,7 +436,7 @@ Example usages:
 
 </div>
 
-![](images/UG-images/help.JPG)
+![](images/UG-images/help.jpg)
 1. A list of all supported commands is shown in the Command Results Panel.
 2. A link to the User Guide is provided.
 ___
@@ -485,7 +487,8 @@ ___
 ## Glossary
 
 ### NAME
-*  Refers to the anime title
+* Refers to the anime title
+* Must have a length of at least 1 and at most 140
 
 ### EPISODE
 *  Refers to the latest episode watched for the anime

@@ -1,0 +1,105 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AnimeListParser" as AnimeListParser LOGIC_COLOR
+participant ":FindCommandParser" as FindCommandParser LOGIC_COLOR
+participant "combinedPred:Predicate<Anime>" as Predicate_Anime LOGIC_COLOR
+participant "namePred:NameContainsKeywordsPredicate" as NameContainsKeywordsPredicate LOGIC_COLOR
+participant "genrePred:GenresContainedPredicate" as GenresContainedPredicate LOGIC_COLOR
+participant "c:FindCommand" as FindCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("find ...")
+activate LogicManager
+
+LogicManager -> AnimeListParser : parseCommand("find ...")
+activate AnimeListParser
+
+create FindCommandParser
+AnimeListParser -> FindCommandParser
+activate FindCommandParser
+
+FindCommandParser --> AnimeListParser
+deactivate FindCommandParser
+
+AnimeListParser -> FindCommandParser : parse("...")
+activate FindCommandParser
+
+create Predicate_Anime
+FindCommandParser -> Predicate_Anime
+activate Predicate_Anime
+
+Predicate_Anime --> FindCommandParser : p
+deactivate Predicate_Anime
+
+opt has Name search terms
+    create NameContainsKeywordsPredicate
+    FindCommandParser -> NameContainsKeywordsPredicate
+    activate NameContainsKeywordsPredicate
+    NameContainsKeywordsPredicate --> FindCommandParser : namePred
+    deactivate NameContainsKeywordsPredicate
+    FindCommandParser -> Predicate_Anime : and(namePred)
+    activate Predicate_Anime
+    Predicate_Anime --> FindCommandParser
+    deactivate Predicate_Anime
+end
+
+opt has Genre search terms
+    create GenresContainedPredicate
+    FindCommandParser -> GenresContainedPredicate
+    activate GenresContainedPredicate
+    GenresContainedPredicate --> FindCommandParser : genrePred
+    deactivate GenresContainedPredicate
+    FindCommandParser -> Predicate_Anime : and(genrePred)
+    activate Predicate_Anime
+    Predicate_Anime --> FindCommandParser
+    deactivate Predicate_Anime
+end
+
+
+create FindCommand
+FindCommandParser -> FindCommand : FindCommand(p)
+activate FindCommand
+
+FindCommand --> FindCommandParser : c
+deactivate FindCommand
+
+FindCommandParser --> AnimeListParser : c
+deactivate FindCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+FindCommandParser -[hidden]-> AnimeListParser
+destroy FindCommandParser
+
+AnimeListParser --> LogicManager : c
+deactivate AnimeListParser
+
+LogicManager -> FindCommand : execute()
+activate FindCommand
+
+FindCommand -> Model : updateFilteredAnimeList(combinedPred)
+activate Model
+Model --> FindCommand
+
+create CommandResult
+FindCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> FindCommand
+deactivate CommandResult
+
+FindCommand --> LogicManager : result
+deactivate FindCommand
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+FindCommand  -[hidden]-> AnimeListParser
+destroy FindCommand
+
+[<--LogicManager : result
+deactivate LogicManager
+@enduml

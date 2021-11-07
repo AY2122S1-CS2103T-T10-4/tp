@@ -8,7 +8,7 @@ import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_EPISODE_DESC_
 import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_EPISODE_DESC_LARGER_THAN_MAX_INT;
 import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_EPISODE_DESC_NEG;
 import static seedu.anilist.logic.commands.CommandTestUtil.STATUS_DESC_TOWATCH;
-import static seedu.anilist.logic.commands.CommandTestUtil.VALID_EPISODE_TWO;
+import static seedu.anilist.logic.commands.CommandTestUtil.VALID_EPISODE_TWO_WITH_ZEROS_PADDED;
 import static seedu.anilist.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.anilist.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.anilist.testutil.TypicalIndexes.INDEX_FIRST_ANIME;
@@ -24,7 +24,7 @@ public class UpdateEpisodeCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
         String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateEpisodeCommand.MESSAGE_USAGE);
 
-    private UpdateEpisodeCommandParser parser = new UpdateEpisodeCommandParser();
+    private final UpdateEpisodeCommandParser parser = new UpdateEpisodeCommandParser();
 
     @Test
     public void parse_missingParts_failure() {
@@ -77,7 +77,8 @@ public class UpdateEpisodeCommandParserTest {
             Episode.MESSAGE_CONSTRAINTS);
 
         // wrong param specified
-        assertParseFailure(parser, "1" + EPISODE_DESC_EPISODE_ONE + STATUS_DESC_TOWATCH, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1" + EPISODE_DESC_EPISODE_ONE + STATUS_DESC_TOWATCH,
+                MESSAGE_INVALID_FORMAT);
     }
 
     @Test
@@ -86,7 +87,7 @@ public class UpdateEpisodeCommandParserTest {
         String userInput = targetIndex.getOneBased() + EPISODE_DESC_EPISODE_TWO;
 
         UpdateEpisodeCommand.EpisodeDescriptor descriptor = new EpisodeDescriptorBuilder()
-            .withEpisode(VALID_EPISODE_TWO)
+            .withEpisode(VALID_EPISODE_TWO_WITH_ZEROS_PADDED)
             .build();
         UpdateEpisodeCommand expectedCommand = new UpdateEpisodeCommand(targetIndex, descriptor);
 

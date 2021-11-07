@@ -30,7 +30,7 @@ public class NameDescriptorTest {
         // different values -> returns false
         assertFalse(DESC_NAME_AKIRA.equals(DESC_NAME_BNHA));
 
-        // different name -> returns false
+        // different names -> returns false
         RenameCommand.NameDescriptor renamedDesc =
             new NameDescriptorBuilder(DESC_NAME_AKIRA).withName(VALID_NAME_BNHA).build();
         assertFalse(DESC_NAME_AKIRA.equals(renamedDesc));

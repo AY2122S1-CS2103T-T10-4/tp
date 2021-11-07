@@ -5,13 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.anilist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.anilist.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.anilist.logic.commands.CommandTestUtil.ACTION_DESC_ADD;
-import static seedu.anilist.logic.commands.CommandTestUtil.ACTION_DESC_DELETE;
+import static seedu.anilist.logic.commands.CommandTestUtil.ACTION_DESC_DELETE_SHORT_FORM;
 import static seedu.anilist.logic.commands.CommandTestUtil.GENRE_DESC_SCIENCE_FICTION;
 import static seedu.anilist.logic.commands.CommandTestUtil.STATUS_DESC_WATCHING;
 import static seedu.anilist.logic.commands.CommandTestUtil.VALID_EPISODE_ONE;
-import static seedu.anilist.logic.commands.CommandTestUtil.VALID_GENRE_SCIENCE_FICTION;
+import static seedu.anilist.logic.commands.CommandTestUtil.VALID_GENRE_SCIENCE_FICTION_UPPER_CASE;
 import static seedu.anilist.logic.commands.CommandTestUtil.VALID_NAME_AKIRA;
-import static seedu.anilist.logic.commands.CommandTestUtil.VALID_STATUS_WATCHING;
+import static seedu.anilist.logic.commands.CommandTestUtil.VALID_STATUS_WATCHING_MIXED_CASE;
 import static seedu.anilist.testutil.Assert.assertThrows;
 import static seedu.anilist.testutil.TypicalIndexes.INDEX_FIRST_ANIME;
 
@@ -82,7 +82,7 @@ public class AnimeListParserTest {
     @Test
     public void parseCommand_genreAdd() throws Exception {
         GenreCommand.GenresDescriptor descriptor = new GenresDescriptorBuilder()
-                .withGenre(VALID_GENRE_SCIENCE_FICTION)
+                .withGenre(VALID_GENRE_SCIENCE_FICTION_UPPER_CASE)
                 .build();
         GenreCommand command = (GenreCommand) parser.parseCommand(GenreCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_ANIME.getOneBased() + ACTION_DESC_ADD
@@ -95,10 +95,10 @@ public class AnimeListParserTest {
     @Test
     public void parseCommand_genreDelete() throws Exception {
         GenreCommand.GenresDescriptor descriptor = new GenresDescriptorBuilder()
-                .withGenre(VALID_GENRE_SCIENCE_FICTION)
+                .withGenre(VALID_GENRE_SCIENCE_FICTION_UPPER_CASE)
                 .build();
         GenreCommand command = (GenreCommand) parser.parseCommand(GenreCommand.COMMAND_WORD + " "
-                + INDEX_FIRST_ANIME.getOneBased() + ACTION_DESC_DELETE
+                + INDEX_FIRST_ANIME.getOneBased() + ACTION_DESC_DELETE_SHORT_FORM
                 + GENRE_DESC_SCIENCE_FICTION);
         assertEquals(new GenreDeleteCommand(INDEX_FIRST_ANIME, descriptor), command);
     }
@@ -142,10 +142,10 @@ public class AnimeListParserTest {
     @Test
     public void parseCommand_updateStatus() throws Exception {
         UpdateStatusCommand.StatusDescriptor descriptor =
-                new StatusDescriptorBuilder().withStatus(VALID_STATUS_WATCHING).build();
+                new StatusDescriptorBuilder().withStatus(VALID_STATUS_WATCHING_MIXED_CASE).build();
         UpdateStatusCommand command = (UpdateStatusCommand) parser.parseCommand(
                 UpdateStatusCommand.COMMAND_WORD + " " + INDEX_FIRST_ANIME.getOneBased() + " s/ "
-                        + VALID_STATUS_WATCHING);
+                        + VALID_STATUS_WATCHING_MIXED_CASE);
         assertEquals(new UpdateStatusCommand(INDEX_FIRST_ANIME, descriptor), command);
     }
 
@@ -182,6 +182,7 @@ public class AnimeListParserTest {
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, ()
+            -> parser.parseCommand("unknownCommand"));
     }
 }

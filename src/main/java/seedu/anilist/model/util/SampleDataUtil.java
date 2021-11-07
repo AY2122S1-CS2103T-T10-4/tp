@@ -78,6 +78,7 @@ public class SampleDataUtil {
      */
     public static Set<Genre> getGenreSet(String... strings) {
         return Arrays.stream(strings)
+                .map(String::toLowerCase)
                 .map(Genre::new)
                 .collect(Collectors.toSet());
     }

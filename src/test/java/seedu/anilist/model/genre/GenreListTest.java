@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_GENRE_NOT_IN_LIST;
+import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_GENRE_ALPHA;
 import static seedu.anilist.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
 import static seedu.anilist.testutil.Assert.assertThrows;
 
@@ -50,7 +50,7 @@ public class GenreListTest {
         // Valid Genre
         assertTrue(GenreList.contains(VALID_GENRE_ACTION));
         // Invalid Genre
-        assertFalse(GenreList.contains(INVALID_GENRE_NOT_IN_LIST));
+        assertFalse(GenreList.contains(INVALID_GENRE_ALPHA));
     }
 
     /**
@@ -62,9 +62,9 @@ public class GenreListTest {
         String[] listOfGenresCopy = Arrays.stream(listOfGenres).toArray(String[]::new);
         Arrays.sort(listOfGenresCopy);
         String result = "";
-        for (int i = 0; i < listOfGenresCopy.length; i++) {
+        for (String genre : listOfGenresCopy) {
             result += "    - ";
-            result += listOfGenresCopy[i];
+            result += genre;
             result += "\n";
         }
         result = result.substring(0, result.length() - 1);

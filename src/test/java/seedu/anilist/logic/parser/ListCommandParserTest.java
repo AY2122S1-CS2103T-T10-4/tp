@@ -5,7 +5,7 @@ import static seedu.anilist.logic.commands.CommandTestUtil.EPISODE_DESC_EPISODE_
 import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_STATUS_DESC_ALPHA;
 import static seedu.anilist.logic.commands.CommandTestUtil.STATUS_DESC_TOWATCH;
 import static seedu.anilist.logic.commands.CommandTestUtil.STATUS_DESC_WATCHING;
-import static seedu.anilist.logic.commands.CommandTestUtil.VALID_STATUS_WATCHING;
+import static seedu.anilist.logic.commands.CommandTestUtil.VALID_STATUS_WATCHING_MIXED_CASE;
 import static seedu.anilist.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.anilist.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.anilist.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -20,7 +20,7 @@ import seedu.anilist.model.anime.StatusEqualsPredicate;
 public class ListCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE);
-    private ListCommandParser parser = new ListCommandParser();
+    private final ListCommandParser parser = new ListCommandParser();
 
     @Test
     public void parse_wrongFieldSpecified_failure() {
@@ -49,7 +49,8 @@ public class ListCommandParserTest {
     }
 
     @Test void parse_validStatusSpecified_success() {
-        StatusEqualsPredicate expectedPredicate = new StatusEqualsPredicate(new Status(VALID_STATUS_WATCHING));
+        StatusEqualsPredicate expectedPredicate = new StatusEqualsPredicate(new Status(
+                VALID_STATUS_WATCHING_MIXED_CASE));
         ListCommand expectedCommand = new ListCommand(expectedPredicate);
 
         assertParseSuccess(parser, STATUS_DESC_WATCHING, expectedCommand);

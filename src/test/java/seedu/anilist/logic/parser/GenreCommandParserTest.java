@@ -3,12 +3,12 @@ package seedu.anilist.logic.parser;
 import static seedu.anilist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.anilist.commons.core.Messages.MESSAGE_OUT_OF_RANGE_INDEX;
 import static seedu.anilist.logic.commands.CommandTestUtil.ACTION_DESC_ADD;
-import static seedu.anilist.logic.commands.CommandTestUtil.ACTION_DESC_DELETE;
+import static seedu.anilist.logic.commands.CommandTestUtil.ACTION_DESC_DELETE_SHORT_FORM;
 import static seedu.anilist.logic.commands.CommandTestUtil.GENRE_DESC_ACTION;
 import static seedu.anilist.logic.commands.CommandTestUtil.GENRE_DESC_SCIENCE_FICTION;
-import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_ACTION_DESC;
-import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_ACTION_NO_SUCH_ACTION;
-import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_GENRE_DESC;
+import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_ACTION_ALPHA;
+import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_ACTION_DESC_ALPHA;
+import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_GENRE_DESC_NON_ALPHANUMERIC;
 import static seedu.anilist.logic.commands.CommandTestUtil.STATUS_DESC_TOWATCH;
 import static seedu.anilist.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.anilist.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -22,7 +22,6 @@ import seedu.anilist.commons.core.index.Index;
 import seedu.anilist.logic.commands.Action;
 import seedu.anilist.logic.commands.GenreAddCommand;
 import seedu.anilist.logic.commands.GenreCommand;
-import seedu.anilist.model.anime.Anime;
 import seedu.anilist.model.genre.Genre;
 import seedu.anilist.testutil.GenresDescriptorBuilder;
 
@@ -30,7 +29,7 @@ public class GenreCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, GenreCommand.MESSAGE_USAGE);
 
-    private GenreCommandParser parser = new GenreCommandParser();
+    private final GenreCommandParser parser = new GenreCommandParser();
     @Test
     public void parse_missingParts_failure() {
         // no index specified
@@ -73,8 +72,8 @@ public class GenreCommandParserTest {
             MESSAGE_OUT_OF_RANGE_INDEX);
 
         // larger than MAX_INT index
-        assertParseFailure(parser, ((long) Integer.MAX_VALUE + 1) + ACTION_DESC_ADD + GENRE_DESC_SCIENCE_FICTION,
-            MESSAGE_OUT_OF_RANGE_INDEX);
+        assertParseFailure(parser, ((long) Integer.MAX_VALUE + 1) + ACTION_DESC_ADD
+                + GENRE_DESC_SCIENCE_FICTION, MESSAGE_OUT_OF_RANGE_INDEX);
 
     }
 
@@ -82,24 +81,24 @@ public class GenreCommandParserTest {
     public void parse_invalidValue_failure() {
         //invalid action
         assertParseFailure(parser,
-                "1" + INVALID_ACTION_DESC + GENRE_DESC_SCIENCE_FICTION,
-                String.format(Action.MESSAGE_INVALID_ACTION_FORMAT, INVALID_ACTION_NO_SUCH_ACTION));
+                "1" + INVALID_ACTION_DESC_ALPHA + GENRE_DESC_SCIENCE_FICTION,
+                String.format(Action.MESSAGE_INVALID_ACTION_FORMAT, INVALID_ACTION_ALPHA));
 
         //invalid genre
-        assertParseFailure(parser, "1" + ACTION_DESC_DELETE + INVALID_GENRE_DESC, Genre.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + ACTION_DESC_DELETE_SHORT_FORM + INVALID_GENRE_DESC_NON_ALPHANUMERIC,
+                Genre.MESSAGE_CONSTRAINTS);
 
         // wrong params specified
-        assertParseFailure(parser, "1" + ACTION_DESC_DELETE + GENRE_DESC_ACTION + STATUS_DESC_TOWATCH,
-                MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1" + ACTION_DESC_DELETE_SHORT_FORM + GENRE_DESC_ACTION
+                + STATUS_DESC_TOWATCH, MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parse_validAllFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_ANIME;
 
-        Anime anime = BNHA;
         GenreCommand.GenresDescriptor descriptor = new GenresDescriptorBuilder()
-                .withGenre(anime.getGenres())
+                .withGenre(BNHA.getGenres())
                 .build();
 
         String userInputAdd = targetIndex.getOneBased() + ACTION_DESC_ADD

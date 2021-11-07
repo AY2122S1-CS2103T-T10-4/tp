@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.anilist.logic.commands.CommandTestUtil.DESC_EPISODE_ONE;
 import static seedu.anilist.logic.commands.CommandTestUtil.DESC_EPISODE_ZERO;
-import static seedu.anilist.logic.commands.CommandTestUtil.VALID_EPISODE_TWO;
+import static seedu.anilist.logic.commands.CommandTestUtil.VALID_EPISODE_TWO_WITH_ZEROS_PADDED;
 import static seedu.anilist.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.anilist.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.anilist.logic.commands.CommandTestUtil.showAnimeAtIndex;
@@ -26,15 +26,15 @@ import seedu.anilist.testutil.EpisodeDescriptorBuilder;
 
 public class UpdateEpisodeCommandTest {
 
-    private Model model = new ModelManager(getTypicalAnimeList(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalAnimeList(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Anime updatedAnime = new AnimeBuilder(model.getFilteredAnimeList().get(INDEX_FIRST_ANIME.getZeroBased()))
-            .withEpisode(VALID_EPISODE_TWO)
+            .withEpisode(VALID_EPISODE_TWO_WITH_ZEROS_PADDED)
             .build();
         UpdateEpisodeCommand.EpisodeDescriptor descriptor = new EpisodeDescriptorBuilder()
-            .withEpisode(VALID_EPISODE_TWO)
+            .withEpisode(VALID_EPISODE_TWO_WITH_ZEROS_PADDED)
             .build();
         UpdateEpisodeCommand updateEpisodeCommand = new UpdateEpisodeCommand(INDEX_FIRST_ANIME, descriptor);
 
@@ -53,10 +53,10 @@ public class UpdateEpisodeCommandTest {
         showAnimeAtIndex(model, INDEX_FIRST_ANIME);
 
         Anime updatedAnime = new AnimeBuilder(model.getFilteredAnimeList().get(INDEX_FIRST_ANIME.getZeroBased()))
-            .withEpisode(VALID_EPISODE_TWO)
+            .withEpisode(VALID_EPISODE_TWO_WITH_ZEROS_PADDED)
             .build();
         UpdateEpisodeCommand.EpisodeDescriptor descriptor = new EpisodeDescriptorBuilder()
-            .withEpisode(VALID_EPISODE_TWO).build();
+            .withEpisode(VALID_EPISODE_TWO_WITH_ZEROS_PADDED).build();
         UpdateEpisodeCommand updateEpisodeCommand = new UpdateEpisodeCommand(INDEX_FIRST_ANIME, descriptor);
 
         String expectedMessage = String.format(
@@ -73,7 +73,7 @@ public class UpdateEpisodeCommandTest {
     public void execute_invalidAnimeIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredAnimeList().size() + 1);
         UpdateEpisodeCommand.EpisodeDescriptor descriptor = new EpisodeDescriptorBuilder()
-            .withEpisode(VALID_EPISODE_TWO).build();
+            .withEpisode(VALID_EPISODE_TWO_WITH_ZEROS_PADDED).build();
         UpdateEpisodeCommand updateEpisodeCommand = new UpdateEpisodeCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(updateEpisodeCommand, model, Messages.MESSAGE_OUT_OF_RANGE_INDEX);
@@ -90,7 +90,7 @@ public class UpdateEpisodeCommandTest {
         // ensures that outOfBoundIndex is still in bounds of anime list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAnimeList().getAnimeList().size());
         UpdateEpisodeCommand.EpisodeDescriptor descriptor = new EpisodeDescriptorBuilder()
-            .withEpisode(VALID_EPISODE_TWO).build();
+            .withEpisode(VALID_EPISODE_TWO_WITH_ZEROS_PADDED).build();
         UpdateEpisodeCommand updateEpisodeCommand = new UpdateEpisodeCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(updateEpisodeCommand, model, Messages.MESSAGE_OUT_OF_RANGE_INDEX);

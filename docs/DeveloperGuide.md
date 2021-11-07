@@ -206,7 +206,7 @@ The last command executed by the user is stored internally as a `Command` in `Lo
 last command requires a user confirmation. If this is the case, the `Parser` parses the next user input
 as a confirmation message instead.
 
-<img src="images/ClearActivityDiagram.png" width="850" />
+{To be added later}
 
 #### Design considerations:
 
@@ -245,39 +245,6 @@ regular filter.
 * **Alternative 2:** Search each keyword split by whitespace. Resets tab after each search.
     * Pros: Less complicated and less coupling.
     * Cons: Does not allow for searches with specific criteria nor keywords with whitespaces in between, does not allow searching within tabs.
-
-### Stats Feature
-
-#### Implementation
-The user statistics consists of the following fields:
-    1. The number of anime(s) the user is currently watching.
-    2. The number of anime(s) the user wants to watch.
-    3. The number of anime(s) the user has finished watching.
-    4. The number of unique anime genre(s) the user tagged animes with.
-    5. The top genres watched represented by a `HashMap`, with `Genre`s as keys and `Integer`s as values.
-The value represents the number of times the corresponding genre is tagged in AniList.
-
-The proposed Stats feature is facilitated mainly by the following classes:
-1. The `Stats` class, which encapsulates the user statistics. A `Stats` field is present in `ModelManager`. `ModelManager`
-   updates it whenever the `Stats` command is executed, by creating a new immutable `Stats` object with `AnimeList#fetchUserStats`.
-2. The `StatsCommand` class, which represents a command to update the `Stats` field in `ModelManager`.
-3. The `StatsDisplay` class, which inherits from the abstract `UiPart` class. It is responsible for
-   displaying the statistical breakdown of anime(s) in the anime list.
-
-#### Design considerations:
-
-**Aspect: Determining how to store and update the user statistics:**
-
-* **Alternative 1 (current choice):** User statistics are stored in an immutable `Stats` object in `ModelManager`, recalculated every time the user executes the `stats` command.
-    * Pros: Straightforward to implement, debug and does not increase coupling among existing classes.
-    * Cons: Results in more computation compared to the alternative, since the stats are recalculated for each `stats` command
-    execution even if they may not have changed from the last execution.
-
-* **Alternative 2:** Implement the Observer pattern where the `Stats` field observes for changes in the anime list.
-    * Pros: May result in less computation compared to Alternative 1.
-    * Cons: Hard to implement and test. In addition, we do not expect users to use the `stats` command as much as 
-    commands which alters the anime list. This may mean an excessive amount of computation for updating the user
-    statistics in the background when the `Stats` window is not up.
 
 ### Themes Feature
 
