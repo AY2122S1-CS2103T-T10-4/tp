@@ -4,13 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.anilist.logic.commands.CommandTestUtil.VALID_NAME_AKIRA;
-import static seedu.anilist.logic.commands.CommandTestUtil.VALID_NAME_BNHA;
 import static seedu.anilist.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -43,7 +41,7 @@ public class AddCommandTest {
         CommandResult commandResult = new AddCommand(validAnime).execute(modelStub);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validAnime), commandResult.getFeedbackToUser());
-        assertEquals(List.of(validAnime), modelStub.animesAdded);
+        assertEquals(Arrays.asList(validAnime), modelStub.animesAdded);
     }
 
     @Test
@@ -57,26 +55,26 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Anime akira = new AnimeBuilder().withName(VALID_NAME_AKIRA).build();
-        Anime bnha = new AnimeBuilder().withName(VALID_NAME_BNHA).build();
-        AddCommand addBnhaCommand = new AddCommand(bnha);
-        AddCommand addAkiraCommand = new AddCommand(akira);
+        Anime naruto = new AnimeBuilder().withName("Naruto").build();
+        Anime bleach = new AnimeBuilder().withName("Bleach").build();
+        AddCommand addNarutoCommand = new AddCommand(naruto);
+        AddCommand addBleachCommand = new AddCommand(bleach);
 
         // same object -> returns true
-        assertTrue(addAkiraCommand.equals(addAkiraCommand));
+        assertTrue(addNarutoCommand.equals(addNarutoCommand));
 
         // same values -> returns true
-        AddCommand addAkiraCommandCopy = new AddCommand(akira);
-        assertTrue(addAkiraCommand.equals(addAkiraCommandCopy));
+        AddCommand addAotCommandCopy = new AddCommand(naruto);
+        assertTrue(addNarutoCommand.equals(addAotCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAkiraCommand.equals(1));
+        assertFalse(addNarutoCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAkiraCommand.equals(null));
+        assertFalse(addNarutoCommand.equals(null));
 
         // different anime -> returns false
-        assertFalse(addAkiraCommand.equals(addBnhaCommand));
+        assertFalse(addNarutoCommand.equals(addBleachCommand));
     }
 
     /**

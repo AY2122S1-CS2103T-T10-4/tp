@@ -1,11 +1,12 @@
 package seedu.anilist.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.anilist.logic.commands.CommandTestUtil.DESC_TOWATCH;
 import static seedu.anilist.logic.commands.CommandTestUtil.DESC_WATCHING;
 import static seedu.anilist.logic.commands.CommandTestUtil.DESC_WATCHING_SHORTFORM;
-import static seedu.anilist.logic.commands.CommandTestUtil.VALID_STATUS_WATCHING_MIXED_CASE;
+import static seedu.anilist.logic.commands.CommandTestUtil.VALID_STATUS_WATCHING;
 import static seedu.anilist.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.anilist.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.anilist.logic.commands.CommandTestUtil.showAnimeAtIndex;
@@ -30,15 +31,15 @@ import seedu.anilist.testutil.StatusDescriptorBuilder;
  */
 public class UpdateStatusCommandTest {
 
-    private final Model model = new ModelManager(getTypicalAnimeList(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAnimeList(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Anime updatedAnime = new AnimeBuilder(model.getFilteredAnimeList().get(INDEX_FIRST_ANIME.getZeroBased()))
-                .withStatus(VALID_STATUS_WATCHING_MIXED_CASE)
+                .withStatus(VALID_STATUS_WATCHING)
                 .build();
         UpdateStatusCommand.StatusDescriptor descriptor = new StatusDescriptorBuilder()
-                .withStatus(VALID_STATUS_WATCHING_MIXED_CASE)
+                .withStatus(VALID_STATUS_WATCHING)
                 .build();
         UpdateStatusCommand updateStatusCommand = new UpdateStatusCommand(INDEX_FIRST_ANIME, descriptor);
 
@@ -57,10 +58,10 @@ public class UpdateStatusCommandTest {
         showAnimeAtIndex(model, INDEX_FIRST_ANIME);
 
         Anime updatedAnime = new AnimeBuilder(model.getFilteredAnimeList().get(INDEX_FIRST_ANIME.getZeroBased()))
-                .withStatus(VALID_STATUS_WATCHING_MIXED_CASE)
+                .withStatus(VALID_STATUS_WATCHING)
                 .build();
         UpdateStatusCommand.StatusDescriptor descriptor = new StatusDescriptorBuilder()
-                .withStatus(VALID_STATUS_WATCHING_MIXED_CASE)
+                .withStatus(VALID_STATUS_WATCHING)
                 .build();
         UpdateStatusCommand updateStatusCommand = new UpdateStatusCommand(INDEX_FIRST_ANIME, descriptor);
 
@@ -78,7 +79,7 @@ public class UpdateStatusCommandTest {
     public void execute_invalidAnimeIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredAnimeList().size() + 1);
         UpdateStatusCommand.StatusDescriptor descriptor = new StatusDescriptorBuilder()
-                .withStatus(VALID_STATUS_WATCHING_MIXED_CASE).build();
+                .withStatus(VALID_STATUS_WATCHING).build();
         UpdateStatusCommand updateStatusCommand = new UpdateStatusCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(updateStatusCommand, model, Messages.MESSAGE_OUT_OF_RANGE_INDEX);
@@ -95,7 +96,7 @@ public class UpdateStatusCommandTest {
         // ensures that outOfBoundIndex is still in bounds of anime list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAnimeList().getAnimeList().size());
         UpdateStatusCommand.StatusDescriptor descriptor = new StatusDescriptorBuilder()
-                .withStatus(VALID_STATUS_WATCHING_MIXED_CASE).build();
+                .withStatus(VALID_STATUS_WATCHING).build();
         UpdateStatusCommand updateStatusCommand = new UpdateStatusCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(updateStatusCommand, model, Messages.MESSAGE_OUT_OF_RANGE_INDEX);
@@ -108,28 +109,28 @@ public class UpdateStatusCommandTest {
         // same values -> returns true
         UpdateStatusCommand.StatusDescriptor copyDescriptor = new UpdateStatusCommand.StatusDescriptor(DESC_WATCHING);
         UpdateStatusCommand commandWithSameValues = new UpdateStatusCommand(INDEX_FIRST_ANIME, copyDescriptor);
-        assertTrue(standardCommand.equals(commandWithSameValues));
+        assertEquals(commandWithSameValues, standardCommand);
 
         // original and shortform -> returns true
         UpdateStatusCommand.StatusDescriptor shortFormDescriptor = new UpdateStatusCommand.StatusDescriptor(
                 DESC_WATCHING_SHORTFORM);
         UpdateStatusCommand commandWithShortForm = new UpdateStatusCommand(INDEX_FIRST_ANIME, shortFormDescriptor);
-        assertTrue(standardCommand.equals(commandWithShortForm));
+        assertEquals(commandWithShortForm, standardCommand);
 
         // same object -> returns true
-        assertTrue(standardCommand.equals(standardCommand));
+        assertEquals(standardCommand, standardCommand);
 
         // null -> returns false
-        assertFalse(standardCommand.equals(null));
+        assertNotEquals(standardCommand, null);
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertNotEquals(new ClearCommand(), standardCommand);
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new UpdateStatusCommand(INDEX_SECOND_ANIME, DESC_WATCHING)));
+        assertNotEquals(new UpdateStatusCommand(INDEX_SECOND_ANIME, DESC_WATCHING), standardCommand);
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new UpdateStatusCommand(INDEX_FIRST_ANIME, DESC_TOWATCH)));
+        assertNotEquals(new UpdateStatusCommand(INDEX_FIRST_ANIME, DESC_TOWATCH), standardCommand);
     }
 
 }

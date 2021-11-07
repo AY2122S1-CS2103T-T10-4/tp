@@ -16,7 +16,7 @@ import seedu.anilist.model.genre.Genre;
 
 public class FindCommandParserTest {
 
-    private final FindCommandParser parser = new FindCommandParser();
+    private FindCommandParser parser = new FindCommandParser();
 
     private static void assertIsFindCommand(Object o) {
         assertNotNull(o);

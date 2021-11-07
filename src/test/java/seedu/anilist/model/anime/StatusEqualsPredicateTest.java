@@ -2,9 +2,8 @@ package seedu.anilist.model.anime;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.anilist.logic.commands.CommandTestUtil.VALID_STATUS_FINISHED_UPPER_CASE;
 import static seedu.anilist.logic.commands.CommandTestUtil.VALID_STATUS_TOWATCH;
-import static seedu.anilist.logic.commands.CommandTestUtil.VALID_STATUS_WATCHING_MIXED_CASE;
+import static seedu.anilist.logic.commands.CommandTestUtil.VALID_STATUS_WATCHING;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +13,7 @@ public class StatusEqualsPredicateTest {
     @Test
     public void equals() {
         Status firstStatus = new Status(VALID_STATUS_TOWATCH);
-        Status secondStatus = new Status(VALID_STATUS_FINISHED_UPPER_CASE);
+        Status secondStatus = new Status(VALID_STATUS_WATCHING);
         StatusEqualsPredicate firstPredicate = new StatusEqualsPredicate(firstStatus);
         StatusEqualsPredicate secondPredicate = new StatusEqualsPredicate(secondStatus);
 
@@ -37,16 +36,15 @@ public class StatusEqualsPredicateTest {
 
     @Test
     public void test_statusMatches_returnsTrue() {
-        Anime animeWatching = new AnimeBuilder().withStatus(VALID_STATUS_FINISHED_UPPER_CASE).build();
-        StatusEqualsPredicate predicateWatching = new StatusEqualsPredicate(new Status(
-                VALID_STATUS_FINISHED_UPPER_CASE));
+        Anime animeWatching = new AnimeBuilder().withStatus(VALID_STATUS_WATCHING).build();
+        StatusEqualsPredicate predicateWatching = new StatusEqualsPredicate(new Status(VALID_STATUS_WATCHING));
 
         assertTrue(predicateWatching.test(animeWatching));
     }
 
     @Test
     public void test_statusDoNotMatch_returnsFalse() {
-        Anime animeWatching = new AnimeBuilder().withStatus(VALID_STATUS_WATCHING_MIXED_CASE).build();
+        Anime animeWatching = new AnimeBuilder().withStatus(VALID_STATUS_WATCHING).build();
         StatusEqualsPredicate predicateToWatch = new StatusEqualsPredicate(new Status(VALID_STATUS_TOWATCH));
 
         assertFalse(predicateToWatch.test(animeWatching));

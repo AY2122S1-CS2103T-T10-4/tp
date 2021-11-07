@@ -1,11 +1,11 @@
 package seedu.anilist.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.anilist.logic.commands.CommandTestUtil.DESC_TOWATCH;
 import static seedu.anilist.logic.commands.CommandTestUtil.DESC_WATCHING;
 import static seedu.anilist.logic.commands.CommandTestUtil.DESC_WATCHING_SHORTFORM;
-import static seedu.anilist.logic.commands.CommandTestUtil.VALID_STATUS_WATCHING_MIXED_CASE;
+import static seedu.anilist.logic.commands.CommandTestUtil.VALID_STATUS_WATCHING;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,29 +18,29 @@ public class StatusDescriptorTest {
         // same values -> returns true
         UpdateStatusCommand.StatusDescriptor descriptorWithSameValues =
                 new UpdateStatusCommand.StatusDescriptor(DESC_TOWATCH);
-        assertTrue(DESC_TOWATCH.equals(descriptorWithSameValues));
+        assertEquals(descriptorWithSameValues, DESC_TOWATCH);
 
         // orignal and shortform -> returns true
         UpdateStatusCommand.StatusDescriptor descriptorWithShortForm =
                 new UpdateStatusCommand.StatusDescriptor(DESC_WATCHING_SHORTFORM);
-        assertTrue(DESC_WATCHING.equals(descriptorWithShortForm));
+        assertEquals(descriptorWithShortForm, DESC_WATCHING);
 
         // same object -> returns true
-        assertTrue(DESC_TOWATCH.equals(DESC_TOWATCH));
+        assertEquals(DESC_TOWATCH, DESC_TOWATCH);
 
         // null -> returns false
-        assertFalse(DESC_TOWATCH.equals(null));
+        assertNotEquals(DESC_TOWATCH, null);
 
         // different types -> returns false
-        assertFalse(DESC_TOWATCH.equals(5));
+        assertNotEquals(DESC_TOWATCH, 5);
 
         // different values -> returns false
-        assertFalse(DESC_TOWATCH.equals(DESC_WATCHING_SHORTFORM));
+        assertNotEquals(DESC_TOWATCH, DESC_WATCHING_SHORTFORM);
 
         // different status -> returns false
         UpdateStatusCommand.StatusDescriptor editedStatusDesc =
-                new StatusDescriptorBuilder(DESC_TOWATCH).withStatus(VALID_STATUS_WATCHING_MIXED_CASE).build();
-        assertFalse(DESC_TOWATCH.equals(editedStatusDesc));
+                new StatusDescriptorBuilder(DESC_TOWATCH).withStatus(VALID_STATUS_WATCHING).build();
+        assertNotEquals(editedStatusDesc, DESC_TOWATCH);
 
     }
 }

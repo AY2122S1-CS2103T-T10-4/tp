@@ -36,7 +36,7 @@ import seedu.anilist.testutil.GenresDescriptorBuilder;
 public class GenreAddCommandTest {
     private static final String ANIME_ONE_GENRE = FIRST_ANIME_GENRE;
 
-    private final Model model = new ModelManager(getTypicalAnimeList(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAnimeList(), new UserPrefs());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredListNewGenre_success() {
@@ -136,7 +136,8 @@ public class GenreAddCommandTest {
     @Test
     public void execute_invalidAnimeIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredAnimeList().size() + 1);
-        GenreAddCommand genreAddCommand = new GenreAddCommand(outOfBoundIndex, DESC_GENRE_ACTION);
+        GenreAddCommand.GenresDescriptor descriptor = DESC_GENRE_ACTION;
+        GenreAddCommand genreAddCommand = new GenreAddCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(genreAddCommand, model, Messages.MESSAGE_INVALID_ANIME_DISPLAYED_INDEX);
     }
@@ -151,7 +152,8 @@ public class GenreAddCommandTest {
         Index outOfBoundIndex = INDEX_SECOND_ANIME;
         // ensures that outOfBoundIndex is still in bounds of anime list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAnimeList().getAnimeList().size());
-        GenreAddCommand genreAddCommand = new GenreAddCommand(outOfBoundIndex, DESC_GENRE_ACTION);
+        GenreAddCommand.GenresDescriptor descriptor = DESC_GENRE_ACTION;
+        GenreAddCommand genreAddCommand = new GenreAddCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(genreAddCommand, model, Messages.MESSAGE_INVALID_ANIME_DISPLAYED_INDEX);
     }

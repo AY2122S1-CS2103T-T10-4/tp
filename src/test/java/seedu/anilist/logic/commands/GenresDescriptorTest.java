@@ -6,13 +6,15 @@ import static seedu.anilist.logic.commands.CommandTestUtil.DESC_GENRE_ACTION;
 import static seedu.anilist.logic.commands.CommandTestUtil.DESC_GENRE_SCIENCE_FICTION;
 import static seedu.anilist.logic.commands.CommandTestUtil.DESC_NAME_AKIRA;
 import static seedu.anilist.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
-import static seedu.anilist.logic.commands.CommandTestUtil.VALID_GENRE_SCIENCE_FICTION_UPPER_CASE;
+import static seedu.anilist.logic.commands.CommandTestUtil.VALID_GENRE_SCIENCE_FICTION;
 
 import java.util.HashSet;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.anilist.testutil.GenresDescriptorBuilder;
+
+
 
 
 public class GenresDescriptorTest {
@@ -39,7 +41,7 @@ public class GenresDescriptorTest {
         // partial genre matches -> returns false
         GenreCommand.GenresDescriptor descriptorWithMultipleGenres =
                 new GenresDescriptorBuilder()
-                        .withGenre(VALID_GENRE_ACTION, VALID_GENRE_SCIENCE_FICTION_UPPER_CASE).build();
+                        .withGenre(VALID_GENRE_ACTION, VALID_GENRE_SCIENCE_FICTION).build();
         assertFalse(DESC_NAME_AKIRA.equals(descriptorWithMultipleGenres));
     }
 

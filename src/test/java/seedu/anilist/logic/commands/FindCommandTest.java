@@ -31,8 +31,8 @@ import seedu.anilist.model.anime.NameContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private final Model model = new ModelManager(getTypicalAnimeList(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(getTypicalAnimeList(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAnimeList(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalAnimeList(), new UserPrefs());
 
     @Test
     public void equals() throws ParseException {
@@ -57,7 +57,7 @@ public class FindCommandTest {
         // null -> returns false
         assertFalse(findFirstCommand.equals(null));
 
-        // different keywords -> returns false
+        // different anime -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
@@ -109,7 +109,7 @@ public class FindCommandTest {
     public void execute_multipleNameAndGenres_noAnimeFound() throws ParseException {
         String expectedMessage = String.format(MESSAGE_ANIME_LISTED_OVERVIEW, 0);
         Predicate<Anime> predicate = preparePredicate(
-                List.of("chainsaw"), Arrays.asList("action", "horror"));
+            Arrays.asList("chainsaw"), Arrays.asList("action", "horror"));
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredAnimeList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);

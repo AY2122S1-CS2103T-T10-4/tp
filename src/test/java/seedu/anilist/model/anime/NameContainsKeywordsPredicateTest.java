@@ -3,13 +3,6 @@ package seedu.anilist.model.anime;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_STRING_EMPTY;
-import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_STRING_NON_ASCII;
-import static seedu.anilist.logic.commands.CommandTestUtil.INVALID_STRING_SPACE;
-import static seedu.anilist.logic.commands.CommandTestUtil.VALID_GENRE_ACTION;
-import static seedu.anilist.logic.commands.CommandTestUtil.VALID_GENRE_SUPERNATURAL_MIXED_CASE;
-import static seedu.anilist.logic.commands.CommandTestUtil.VALID_NAME_AKIRA;
-import static seedu.anilist.logic.commands.CommandTestUtil.VALID_NAME_FATE_ZERO;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,15 +19,11 @@ public class NameContainsKeywordsPredicateTest {
     public void constructor_invalidNameKeywords_throwsParseException() {
         // Empty String
         assertThrows(ParseException.class, () ->
-            new GenresContainedPredicate(Collections.singletonList(INVALID_STRING_EMPTY)));
-
-        // Space
-        assertThrows(ParseException.class, () ->
-                new GenresContainedPredicate(Collections.singletonList(INVALID_STRING_SPACE)));
+            new GenresContainedPredicate(Collections.singletonList("")));
 
         // Non-ASCII
         assertThrows(ParseException.class, () ->
-            new GenresContainedPredicate(Collections.singletonList(INVALID_STRING_NON_ASCII)));
+            new GenresContainedPredicate(Collections.singletonList("非ascii字符")));
     }
 
     @Test
@@ -98,16 +87,15 @@ public class NameContainsKeywordsPredicateTest {
     public void test_nameDoesNotContainKeywords_returnsFalse() throws ParseException {
         // Zero keywords
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new AnimeBuilder().withName(VALID_NAME_AKIRA).build()));
+        assertFalse(predicate.test(new AnimeBuilder().withName("Attack on Titan").build()));
 
         // Non-matching keyword
-        predicate = new NameContainsKeywordsPredicate(List.of(VALID_NAME_FATE_ZERO));
-        assertFalse(predicate.test(new AnimeBuilder().withName(VALID_NAME_AKIRA).build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Chainsaw"));
+        assertFalse(predicate.test(new AnimeBuilder().withName("Black Rock Shooter").build()));
 
         // Keywords match genres, but does not match name
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList(VALID_GENRE_ACTION,
-                VALID_GENRE_SUPERNATURAL_MIXED_CASE));
-        assertFalse(predicate.test(new AnimeBuilder().withName(VALID_NAME_AKIRA)
-                .withGenres(VALID_GENRE_ACTION, VALID_GENRE_SUPERNATURAL_MIXED_CASE).build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("action", "adventure"));
+        assertFalse(predicate.test(new AnimeBuilder().withName("Attack on Titan")
+                .withGenres("action", "adventure").build()));
     }
 }
