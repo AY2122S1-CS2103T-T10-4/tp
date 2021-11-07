@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+:User executes Clear command;
+:User prompted to confirm Clear command;
+:User inputs follow-up command;
+if () then ([clear])
+    :Clear all anime(s) displayed;
+    :Display anime(s) cleared message;
+else ([else])
+    :Display clear command aborted message;
+endif
+stop
+@enduml
