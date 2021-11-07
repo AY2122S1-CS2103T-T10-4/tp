@@ -5,9 +5,9 @@ title: User Guide
 
 # AniList V1.4
 
-AniList is a desktop application made to be a single centralized location for anime lovers to keep track of all the animes they are interested in. In AniList, users will be able to keep track of animes that they are watching, wanting to watch or even animes that they have finished. Users will also be able to get statistics on their watching habits such as number of episodes watched and the genre distribution of their current list of animes.
+AniList is a desktop application made to be a single centralized location for anime lovers to keep track of all the animes they are interested in. In AniList, users will be able to keep track of animes that they are watching, wanting to watch and animes that they have finished. Users will also be able to get statistics on their watching habits such as the genre distribution of their current list of animes.
 
-AniList is optimized for use via a Command Line Interface (CLI) while still having the benefits of a customizable Graphical User Interface (GUI). If you are a fast typist, AniList can get your anime management tasks done FASTER than traditional GUI applications!
+AniList is optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you are a fast typist, AniList can get your anime management tasks done FASTER than traditional GUI applications!
 
 This User Guide is to be used by any AniList user. No technical background is required.
 
@@ -23,11 +23,11 @@ This User Guide is to be used by any AniList user. No technical background is re
   * [Updating anime watch status: `status`](#updating-anime-watch-status-status)
   * [Updating anime title: `rename`](#updating-anime-title-rename)
   * [Adding/ Deleting genre from anime: `genre`](#adding-deleting-genre-from-anime-genre)
-  * [Listing all supported genres: `genrelist`](#list-all-supported-genres-genrelist)
+  * [Listing all supported genres: `genrelist`](#list-of-available-genres)
   * [Listing anime based on watch status: `list`](#listing-anime-based-on-watch-status-list)
   * [Clearing all animes currently displayed: `clear`](#clearing-all-animes-currently-displayed-clear)
   * [Finding an anime: `find`](#finding-an-anime-find)
-  * [Viewing user statistics: `stats`](#view-user-statistics-stats)
+  * [Viewing user statistics: `stats`](#viewing-user-statistics-stats)
   * [Viewing all supported commands: `help`](#viewing-all-supported-commands-help)
   * [Exiting application: `exit`](#exiting-application-exit)
 - [Commands Table](#commands-table)
@@ -387,19 +387,38 @@ all anime with comedy genre.
 </div>
 
 ![](images/UG-images/find.JPG)
-
+1. A success message showing the number of anime(s) found is shown on the Command Results Panel.
+2. Anime(s) found are listed in the Anime List Panel.
 ___
 
 ### Viewing user statistics: `stats`
 
 Displays a pop-up window that shows the statistical breakdown of anime(s) in AniList.
-User may exit the stats window by either clicking on the `X` button on the top right or by pressing 
-`CTRL-Q`
+Users may exit the stats window by either clicking on the `X` button on the top right or by pressing 
+`CTRL-Q`.
+
+* The stats window consists of a **pie chart** on the left and a **bar chart** on the right. 
+* The pie chart shows the number of anime(s) of each [watch status](#status) in AniList.
+* The bar chart shows the number of top genres, up to the **top 6**, based on the number of animes
+  tagged with a particular genre.
+  * If two or more genres tie for the sixth spot (i.e. there are an equal number of anime(s) tagged
+  with these genres), a random genre among these genres will be included in the bar chart.
+* Theme switching by using either the [menu bar](#gui-breakdown) or [hotkeys](#hot-keys) both work when the `stats` window 
+is up, but only when the user focuses on the main window. In other words, you have to click on the main window to bring it 
+to the front first before switching themes.
+* The [command input box](#gui-breakdown) is disabled while the `stats` window is up.
 
 Format: `stats`
 
-![](images/UG-images/stats1.JPG)
-![](images/UG-images/stats2.JPG)
+Stats Window           | 
+:-------------------------:|
+![](images/UG-images/stats2.png)  | 
+
+Main Window when the Stats Window is on display |  
+:-------------------------:|
+![](images/UG-images/stats1.JPG)  |  
+1. A success message showing that the user statistics have been displayed is shown on the Command Results Panel.
+2. The [command input box](#gui-breakdown) is disabled.
 
 ___
 
@@ -456,11 +475,11 @@ ___
 | [status](#updating-anime-watch-status-status)     | `status INDEX s/UPDATEDSTATUS` |
 | [rename](#updating-anime-title-rename)     | `rename INDEX n/NEWTITLE` |
 | [genre](#adding-deleting-genre-from-anime-genre)     | `genre INDEX c/ACTION g/GENRE [g/GENRE]` |
-| [genrelist](#list-all-supported-genres-genrelist) | `genrelist` |
+| [genrelist](#list-of-available-genres) | `genrelist` |
 | [list](#listing-anime-based-on-watch-status-list)     | `list [s/STATUS]` |
 | [clear](#clearing-all-animes-currently-displayed-clear)    | `clear` |
 | [find](#finding-an-anime-find)  | `find [n/NAME KEYWORD]... [g/GENRE KEYWORD]...` |
-| [stats](#view-user-statistics-stats)  | `stats` |
+| [stats](#viewing-user-statistics-stats)  | `stats` |
 | [help](#viewing-all-supported-commands-help)     | `help` |
 
 ## Glossary
@@ -478,7 +497,7 @@ ___
 
 ### GENRE
 *  Refers to the genre to which the anime belong to
-*  Must be from the list of available genres found in [genrelist](#list-of-avaible-genres)
+*  Must be from the list of available genres found in [genrelist](#list-of-available-genres)
 *  A single anime can contain more than 1 genre
 
 ### INDEX
@@ -489,7 +508,7 @@ ___
 *  Specifies additional information for the `genre` command
 *  Current list of available actions: `add`, `delete`, with `a`, `d`, as their short forms respectively
 
-## List of Avaible Genres
+## List of Available Genres
 These are the current list of available Genres in the genrelist:
 *  Action
 *  Adventure
